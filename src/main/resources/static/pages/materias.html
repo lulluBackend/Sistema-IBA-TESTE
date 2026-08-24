@@ -1,0 +1,43 @@
+<div class="content-panel">
+    <div class="panel-header">
+        <h3><i class="fas fa-plus-circle"></i> Nova Matéria</h3>
+    </div>
+    <form id="materiaForm" class="form-grid">
+        <div class="form-group">
+            <label class="required">NOME DA MATÉRIA</label>
+            <input type="text" id="nome" required placeholder="Ex: Antigo Testamento">
+            <small>A matéria receberá automaticamente um ID único como código</small>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Salvar Matéria
+            </button>
+            <button type="button" class="btn btn-outline" onclick="limparFormMateria()">
+                <i class="fas fa-eraser"></i> Limpar
+            </button>
+        </div>
+    </form>
+    <input type="hidden" id="editMateriaId">
+</div>
+
+<div class="content-panel">
+    <div class="panel-header">
+        <h3><i class="fas fa-list"></i> Lista de Matérias</h3>
+        <div class="search-bar">
+            <input type="text" id="searchMateria" placeholder="Buscar por nome..." onkeyup="buscarMaterias()">
+            <button onclick="carregarMaterias()" class="btn-outline">
+                <i class="fas fa-sync-alt"></i>
+            </button>
+        </div>
+    </div>
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th><th>Nome</th><th>Cursos</th><th>Média Geral</th><th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="materiasList"></tbody>
+        </table>
+    </div>
+</div>

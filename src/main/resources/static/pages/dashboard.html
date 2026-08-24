@@ -1,0 +1,80 @@
+<div class="dashboard-cards" id="dashboardCards">
+    <div class="card" onclick="location.href='#'" data-page="alunos">
+        <div class="card-icon primary">
+            <i class="fas fa-users"></i>
+        </div>
+        <div class="card-value" id="totalAlunos">-</div>
+        <div class="card-label">Alunos Cadastrados</div>
+    </div>
+    <div class="card" onclick="location.href='#'" data-page="alunos">
+        <div class="card-icon primary">
+            <i class="fas fa-user-check"></i>
+        </div>
+        <div class="card-value" id="alunosAtivos">-</div>
+        <div class="card-label">Alunos Ativos</div>
+    </div>
+    <div class="card" onclick="location.href='#'" data-page="cursos">
+        <div class="card-icon secondary">
+            <i class="fas fa-book"></i>
+        </div>
+        <div class="card-value" id="totalCursos">-</div>
+        <div class="card-label">Cursos</div>
+    </div>
+    <div class="card" onclick="location.href='#'" data-page="materias">
+        <div class="card-icon info">
+            <i class="fas fa-chalkboard"></i>
+        </div>
+        <div class="card-value" id="totalMaterias">-</div>
+        <div class="card-label">Matérias</div>
+    </div>
+    <div class="card" onclick="location.href='#'" data-page="professores">
+        <div class="card-icon secondary">
+            <i class="fas fa-chalkboard-user"></i>
+        </div>
+        <div class="card-value" id="totalProfessores">-</div>
+        <div class="card-label">Professores</div>
+    </div>
+    <!-- Card de Média Geral REMOVIDO - não faz sentido misturar notas de matérias diferentes -->
+</div>
+
+<div class="content-panel">
+    <div class="panel-header">
+        <h3><i class="fas fa-chart-pie"></i> Distribuição de Alunos por Curso</h3>
+    </div>
+    <div class="table-container">
+        <table class="data-table" id="distribuicaoCursos">
+            <thead>
+                <tr><th>Curso</th><th>Alunos</th><th>%</th></tr>
+            </thead>
+            <tbody id="distribuicaoBody"></tbody>
+        </table>
+    </div>
+</div>
+
+<div class="content-panel">
+    <div class="panel-header">
+        <h3><i class="fas fa-star"></i> Desempenho por Curso</h3>
+    </div>
+    <div class="table-container">
+        <table class="data-table" id="desempenhoCursos">
+            <thead>
+                <tr><th>Curso</th><th>Média de Notas</th><th>Status</th></tr>
+            </thead>
+            <tbody id="desempenhoBody"></tbody>
+        </table>
+    </div>
+</div>
+
+<div class="content-panel">
+    <div class="panel-header">
+        <h3><i class="fas fa-clock"></i> Últimos Alunos Cadastrados</h3>
+    </div>
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr><th>Matrícula</th><th>Nome</th><th>Curso Atual</th><th>Data Cadastro</th></tr>
+            </thead>
+            <tbody id="alunosRecentesBody"></tbody>
+        </table>
+    </div>
+</div>

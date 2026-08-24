@@ -1,0 +1,70 @@
+<div class="content-panel">
+    <div class="panel-header">
+        <h3><i class="fas fa-graduation-cap"></i> Nova Matrícula</h3>
+    </div>
+    <form id="matriculaForm" class="form-grid">
+        <div class="form-group">
+            <label class="required">ALUNO</label>
+            <select id="alunoId" required></select>
+        </div>
+        <div class="form-group">
+            <label class="required">CURSO</label>
+            <select id="cursoId" required></select>
+        </div>
+        <div class="form-group">
+            <label class="required">ANO</label>
+            <input type="number" id="ano" value="2024" required min="2000" max="2030">
+        </div>
+        <div class="form-group">
+            <label class="required">SEMESTRE</label>
+            <select id="semestre" required>
+                <option value="1">1º Semestre</option>
+                <option value="2">2º Semestre</option>
+            </select>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Realizar Matrícula
+            </button>
+            <button type="button" class="btn btn-outline" onclick="limparFormMatricula()">
+                <i class="fas fa-eraser"></i> Limpar
+            </button>
+        </div>
+    </form>
+</div>
+
+<div class="content-panel">
+    <div class="panel-header">
+        <h3><i class="fas fa-list"></i> Histórico de Matrículas</h3>
+        <div class="search-bar">
+            <input type="text" id="searchMatricula" placeholder="Buscar por aluno..." onkeyup="buscarMatriculas()">
+            <button onclick="carregarMatriculas()" class="btn-outline">
+                <i class="fas fa-sync-alt"></i>
+            </button>
+        </div>
+    </div>
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Aluno</th><th>Curso</th><th>Ano/Semestre</th><th>Data Matrícula</th><th>Status</th><th>Média</th><th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="matriculasList"></tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal de Detalhes da Matrícula -->
+<div id="matriculaModal" class="modal">
+    <div class="modal-content" style="max-width: 900px;">
+        <div class="modal-header">
+            <h3>Detalhes da Matrícula</h3>
+            <button class="modal-close" onclick="fecharModal('matriculaModal')">&times;</button>
+        </div>
+        <div class="modal-body" id="matriculaDetalhes"></div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" onclick="fecharModal('matriculaModal')">Fechar</button>
+        </div>
+    </div>
+</div>

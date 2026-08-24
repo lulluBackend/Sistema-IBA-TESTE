@@ -1,0 +1,121 @@
+<div class="content-panel">
+    <div class="panel-header">
+        <h3><i class="fas fa-user-plus"></i> Novo Professor</h3>
+    </div>
+    <form id="professorForm" class="form-grid">
+        <div class="form-group">
+            <label class="required">NOME COMPLETO</label>
+            <input type="text" id="nome" required>
+        </div>
+        <div class="form-group">
+            <label class="required">CPF</label>
+            <input type="text" id="cpf" data-mask="cpf" required>
+        </div>
+        <div class="form-group">
+            <label>RG</label>
+            <input type="text" id="rg">
+        </div>
+        <div class="form-group">
+            <label>EMAIL</label>
+            <input type="email" id="email">
+        </div>
+        <div class="form-group">
+            <label>TELEFONE</label>
+            <input type="text" id="telefone" data-mask="telefone">
+        </div>
+        <div class="form-group">
+            <label>DATA NASCIMENTO</label>
+            <input type="date" id="dataNascimento">
+        </div>
+        <div class="form-group">
+            <label>CEP</label>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="cep" data-mask="cep" style="flex:1">
+                <button type="button" class="btn btn-sm btn-outline" onclick="buscarCepProfessor()">
+                    <i class="fas fa-search"></i> Buscar
+                </button>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>ENDEREÇO</label>
+            <input type="text" id="endereco">
+        </div>
+        <div class="form-group">
+            <label>NÚMERO</label>
+            <input type="text" id="numero">
+        </div>
+        <div class="form-group">
+            <label>COMPLEMENTO</label>
+            <input type="text" id="complemento">
+        </div>
+        <div class="form-group">
+            <label>BAIRRO</label>
+            <input type="text" id="bairro">
+        </div>
+        <div class="form-group">
+            <label>CIDADE</label>
+            <input type="text" id="cidade">
+        </div>
+        <div class="form-group">
+            <label>ESTADO</label>
+            <input type="text" id="estado" maxlength="2">
+        </div>
+        <div class="form-group">
+            <label>ÁREA DE ATUAÇÃO</label>
+            <input type="text" id="area" placeholder="Ex: Teologia, Grego, Hebraico">
+        </div>
+        <div class="form-group">
+            <label>ESPECIALIZAÇÃO</label>
+            <input type="text" id="especializacao" placeholder="Ex: Mestrado em Teologia">
+        </div>
+        <div class="form-group">
+            <label>DATA CONTRATAÇÃO</label>
+            <input type="date" id="dataContratacao">
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Salvar Professor
+            </button>
+            <button type="button" class="btn btn-outline" onclick="limparFormProfessor()">
+                <i class="fas fa-eraser"></i> Limpar
+            </button>
+        </div>
+    </form>
+    <input type="hidden" id="editProfessorId">
+</div>
+
+<div class="content-panel">
+    <div class="panel-header">
+        <h3><i class="fas fa-chalkboard-user"></i> Lista de Professores</h3>
+        <div class="search-bar">
+            <input type="text" id="searchProfessor" placeholder="Buscar por nome..." onkeyup="buscarProfessores()">
+            <button onclick="carregarProfessores()" class="btn-outline">
+                <i class="fas fa-sync-alt"></i>
+            </button>
+        </div>
+    </div>
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th><th>Nome</th><th>CPF</th><th>Área</th><th>Status</th><th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="professoresList"></tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal de Visualização -->
+<div id="professorModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Detalhes do Professor</h3>
+            <button class="modal-close" onclick="fecharModal('professorModal')">&times;</button>
+        </div>
+        <div class="modal-body" id="professorDetalhes"></div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" onclick="fecharModal('professorModal')">Fechar</button>
+        </div>
+    </div>
+</div>

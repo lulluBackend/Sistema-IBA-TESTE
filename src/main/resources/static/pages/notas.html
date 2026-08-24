@@ -1,0 +1,115 @@
+<div class="content-panel">
+    <div class="panel-header">
+        <h3><i class="fas fa-filter"></i> Filtros</h3>
+    </div>
+    <div class="form-grid">
+        <div class="form-group">
+            <label>ALUNO</label>
+            <select id="filtroAluno">
+                <option value="">Selecione um aluno</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>MATRÍCULA (Período)</label>
+            <select id="filtroMatricula">
+                <option value="">Selecione uma matrícula</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="content-panel" id="alunoInfoPanel" style="display: none;">
+    <div class="panel-header">
+        <h3><i class="fas fa-user-graduate"></i> Informações do Aluno</h3>
+    </div>
+    <div class="form-grid" id="alunoInfo"></div>
+</div>
+
+<div class="content-panel">
+    <div class="panel-header">
+        <h3><i class="fas fa-star"></i> Lançamento de Notas</h3>
+    </div>
+
+    <form id="notaForm" class="form-grid">
+        <div class="form-group">
+            <label class="required">MATÉRIA</label>
+            <select id="materiaNota" required>
+                <option value="">Selecione uma matéria</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="required">CICLO</label>
+            <select id="ciclo" required>
+                <option value="1">1º Ciclo</option>
+                <option value="2">2º Ciclo</option>
+                <option value="3">3º Ciclo</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="required">NOTA (0-100)</label>
+            <input
+                type="text"
+                id="valorNota"
+                step="0.1"
+                min="0"
+                max="100"
+                required
+                oninput="this.value = this.value.replace(',', '.');"
+            >
+            <small>Use ponto (.) ou vírgula (,) - Ex: 85.5 ou 85,5</small>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Salvar Nota
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- TABELA DE NOTAS -->
+<div class="content-panel">
+    <div class="panel-header">
+        <h3><i class="fas fa-table"></i> Notas por Matéria</h3>
+    </div>
+
+    <div class="table-container">
+        <table class="data-table" id="notasTableContainer">
+            <thead>
+                <tr>
+                    <th>Matéria</th>
+                    <th>ID</th>
+                    <th style="text-align: center">
+                        1º Ciclo
+                        <br>
+                        <small>(Dia 7)</small>
+                    </th>
+                    <th style="text-align: center">
+                        2º Ciclo
+                        <br>
+                        <small>(Dia 14)</small>
+                    </th>
+                    <th style="text-align: center">
+                        3º Ciclo
+                        <br>
+                        <small>(Dia 21)</small>
+                    </th>
+                    <th style="text-align: center">Média</th>
+                    <th style="text-align: center">Status</th>
+                </tr>
+            </thead>
+            <tbody id="notasTable">
+                <tr>
+                    <td colspan="7" style="text-align: center">
+                        Selecione um aluno e matrícula
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<input type="hidden" id="matriculaAtualId">
+<input type="hidden" id="materiaAtualId">

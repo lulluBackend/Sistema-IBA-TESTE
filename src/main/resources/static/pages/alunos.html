@@ -1,0 +1,126 @@
+<div class="content-panel">
+    <div class="panel-header">
+        <h3><i class="fas fa-user-plus"></i> Novo Aluno</h3>
+    </div>
+    <form id="alunoForm" class="form-grid">
+        <div class="form-group">
+            <label class="required">NOME COMPLETO</label>
+            <input type="text" id="nome" required>
+        </div>
+        <div class="form-group">
+            <label>CPF</label>
+            <input type="text" id="cpf" data-mask="cpf">
+        </div>
+        <div class="form-group">
+            <label>RG</label>
+            <input type="text" id="rg">
+        </div>
+        <div class="form-group">
+            <label>EMAIL</label>
+            <input type="email" id="email">
+        </div>
+        <div class="form-group">
+            <label>TELEFONE</label>
+            <input type="text" id="telefone" data-mask="telefone">
+        </div>
+        <div class="form-group">
+            <label>DATA NASCIMENTO</label>
+            <input type="date" id="dataNascimento">
+        </div>
+        <div class="form-group">
+            <label>NATURALIDADE</label>
+            <input type="text" id="naturalidade">
+        </div>
+        <div class="form-group">
+            <label>NOME DO PAI</label>
+            <input type="text" id="nomePai">
+        </div>
+        <div class="form-group">
+            <label>NOME DA MÃE</label>
+            <input type="text" id="nomeMae">
+        </div>
+        <div class="form-group">
+            <label>CEP</label>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="cep" data-mask="cep" style="flex:1">
+                <button type="button" class="btn btn-sm btn-outline" onclick="buscarCepAluno()">
+                    <i class="fas fa-search"></i> Buscar
+                </button>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>ENDEREÇO</label>
+            <input type="text" id="endereco">
+        </div>
+        <div class="form-group">
+            <label>NÚMERO</label>
+            <input type="text" id="numero">
+        </div>
+        <div class="form-group">
+            <label>COMPLEMENTO</label>
+            <input type="text" id="complemento">
+        </div>
+        <div class="form-group">
+            <label>BAIRRO</label>
+            <input type="text" id="bairro">
+        </div>
+        <div class="form-group">
+            <label>CIDADE</label>
+            <input type="text" id="cidade">
+        </div>
+        <div class="form-group">
+            <label>ESTADO</label>
+            <input type="text" id="estado" maxlength="2">
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Salvar Aluno
+            </button>
+            <button type="button" class="btn btn-outline" onclick="limparFormAluno()">
+                <i class="fas fa-eraser"></i> Limpar
+            </button>
+        </div>
+    </form>
+    <input type="hidden" id="editAlunoId">
+</div>
+
+<div class="content-panel">
+    <div class="panel-header">
+        <h3><i class="fas fa-list"></i> Lista de Alunos</h3>
+        <div class="search-bar">
+            <input type="text" id="searchAluno" placeholder="Buscar por nome..." onkeyup="buscarAlunos()">
+            <button onclick="carregarAlunos()">
+                <i class="fas fa-sync-alt"></i>
+            </button>
+        </div>
+    </div>
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Matrícula</th>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Curso Atual</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="alunosList"></tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal de Visualização -->
+<div id="alunoModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Detalhes do Aluno</h3>
+            <button class="modal-close" onclick="fecharModal('alunoModal')">&times;</button>
+        </div>
+        <div class="modal-body" id="alunoDetalhes"></div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" onclick="fecharModal('alunoModal')">Fechar</button>
+        </div>
+    </div>
+</div>

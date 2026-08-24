@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBA - Instituto Bíblico de Anápolis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>📚 IBA</h2>
+            <p>Instituto Bíblico</p>
+        </div>
+        <div class="sidebar-menu">
+            <a class="menu-item" data-page="dashboard">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a class="menu-item" data-page="alunos">
+                <i class="fas fa-users"></i>
+                <span>Alunos</span>
+            </a>
+            <a class="menu-item" data-page="cursos">
+                <i class="fas fa-book"></i>
+                <span>Cursos</span>
+            </a>
+            <a class="menu-item" data-page="materias">
+                <i class="fas fa-chalkboard"></i>
+                <span>Matérias</span>
+            </a>
+            <a class="menu-item" data-page="professores">
+                <i class="fas fa-chalkboard-user"></i>
+                <span>Professores</span>
+            </a>
+            <a class="menu-item" data-page="matriculas">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Matrículas</span>
+            </a>
+            <a class="menu-item" data-page="notas">
+                <i class="fas fa-star"></i>
+                <span>Notas</span>
+            </a>
+            <a class="menu-item" data-page="doacoes">
+                <i class="fas fa-hand-holding-heart"></i>
+                <span>Doações</span>
+            </a>
+
+
+        </div>
+    </div>
+    
+    <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <div class="main-content">
+        <div class="top-bar">
+            <div class="page-title">
+                <h1 id="pageTitle">Dashboard</h1>
+                <p id="pageDescription">Visão geral do sistema</p>
+            </div>
+            <div class="user-info">
+                <span><i class="fas fa-user-circle"></i> Administrador</span>
+            </div>
+        </div>
+        
+        <div class="content-container" id="contentContainer">
+            <div class="loading">
+                <div class="loading-spinner"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/utils.js"></script>
+    <script>
+        // Estado da sidebar
+        const sidebar = document.getElementById('sidebar');
+        const toggleBtn = document.getElementById('sidebarToggle');
+        
+        toggleBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+        });
+        
+        // Carregar página
+        async function loadPage(page) {
+            const contentContainer = document.getElementById('contentContainer');
+// No index.html, atualizar o titleMap:
+const titleMap = {
+    dashboard: { title: 'Dashboard', desc: 'Visão geral do sistema' },
+    alunos: { title: 'Alunos', desc: 'Gerenciar cadastro de alunos' },
+    cursos: { title: 'Cursos', desc: 'Gerenciar cursos e matérias' },
+    materias: { title: 'Matérias', desc: 'Gerenciar disciplinas' },
+    professores: { title: 'Professores', desc: 'Gerenciar docentes' },
+    matriculas: { title: 'Matrículas', desc: 'Realizar matrículas de alunos' },
+    notas: { title: 'Notas', desc: 'Lançamento de notas por ciclo' },
+    doacoes: { title: 'Doações', desc: 'Gerenciar doações da instituição' }  // ← ADICIONAR
+};
+            
+            document.getElementById('pageTitle').innerText = titleMap[page]?.title || page;
+            document.getElementById('pageDescription').innerText = titleMap[page]?.desc || '';
+            
+            contentContainer.innerHTML = '<div class="loading"><div class="loading-spinner"></div></div>';
+            
+            try {
+                const response = await fetch(`pages/${page}.html`);
+                if (!response.ok) throw new Error('Página não encontrada');
+                const html = await response.text();
+                contentContainer.innerHTML = html;
+                
+                // Carregar script específico da página
+                const scriptId = `script-${page}`;
+                const existingScript = document.getElementById(scriptId);
+                if (existingScript) existingScript.remove();
+                
+                const script = document.createElement('script');
+                script.id = scriptId;
+                script.src = `js/pages/${page}.js`;
+                script.onload = () => {
+                    if (window[`init${page.charAt(0).toUpperCase() + page.slice(1)}`]) {
+                        window[`init${page.charAt(0).toUpperCase() + page.slice(1)}`]();
+                    }
+                };
+                document.body.appendChild(script);
+            } catch (error) {
+                contentContainer.innerHTML = `
+                    <div class="content-panel">
+                        <div class="alert alert-error">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span>Erro ao carregar página: ${error.message}</span>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        // Navegação
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                const page = item.dataset.page;
+                loadPage(page);
+            });
+        });
+        
+        // Carregar dashboard inicial
+        loadPage('dashboard');
+    </script>
+</body>
+</html>

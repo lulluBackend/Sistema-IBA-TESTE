@@ -1,0 +1,141 @@
+<div class="content-panel">
+    <div class="panel-header">
+        <h3><i class="fas fa-hand-holding-heart"></i> Registrar Doação</h3>
+    </div>
+    <form id="doacaoForm" class="form-grid">
+        <div class="form-group">
+            <label class="required">NOME DO DOADOR</label>
+            <input type="text" id="nomeDoador" required>
+        </div>
+        <div class="form-group">
+            <label>EMAIL</label>
+            <input type="email" id="email">
+        </div>
+        <div class="form-group">
+            <label>TELEFONE</label>
+            <input type="text" id="telefone" data-mask="telefone">
+        </div>
+        <div class="form-group">
+            <label class="required">TIPO DE DOAÇÃO</label>
+            <select id="tipoDoacao" required onchange="toggleValorItem()">
+                <option value="">Selecione</option>
+                <option value="DINHEIRO">Dinheiro</option>
+                <option value="LIVROS">Livros</option>
+                <option value="MOVEIS">Móveis</option>
+                <option value="EQUIPAMENTOS">Equipamentos</option>
+                <option value="OUTROS">Outros</option>
+            </select>
+        </div>
+        <div class="form-group" id="valorGroup" style="display: none;">
+            <label>VALOR (R$)</label>
+            <input type="number" id="valor" step="0.01" min="0">
+        </div>
+        <div class="form-group" id="descricaoGroup" style="display: none;">
+            <label>DESCRIÇÃO DO ITEM</label>
+            <textarea id="descricaoItem" rows="3" placeholder="Descreva o item doado..."></textarea>
+        </div>
+        <div class="form-group">
+            <label>DATA DA DOAÇÃO</label>
+            <input type="date" id="dataDoacao">
+        </div>
+        <div class="form-group">
+            <label>STATUS</label>
+            <select id="statusDoacao">
+                <option value="CONFIRMADA">✅ Confirmada</option>
+                <option value="PENDENTE">⏳ Pendente</option>
+                <option value="CANCELADA">❌ Cancelada</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>OBSERVAÇÕES</label>
+            <textarea id="observacoes" rows="3" placeholder="Observações adicionais..."></textarea>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Registrar Doação
+            </button>
+            <button type="button" class="btn btn-outline" onclick="limparFormDoacao()">
+                <i class="fas fa-eraser"></i> Limpar
+            </button>
+        </div>
+    </form>
+    <input type="hidden" id="editDoacaoId">
+</div>
+
+<div class="dashboard-cards" id="doacaoDashboard" style="margin-bottom: 20px;">
+    <div class="card">
+        <div class="card-icon primary">
+            <i class="fas fa-hand-holding-heart"></i>
+        </div>
+        <div class="card-value" id="totalDoacoes">-</div>
+        <div class="card-label">Total de Doações</div>
+    </div>
+    <div class="card">
+        <div class="card-icon success">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="card-value" id="totalConfirmadas">-</div>
+        <div class="card-label">Doações Confirmadas</div>
+    </div>
+    <div class="card">
+        <div class="card-icon warning">
+            <i class="fas fa-coins"></i>
+        </div>
+        <div class="card-value" id="totalDinheiro">-</div>
+        <div class="card-label">Valor Total (R$)</div>
+    </div>
+</div>
+
+<div class="content-panel">
+    <div class="panel-header">
+        <h3><i class="fas fa-chart-pie"></i> Distribuição por Tipo</h3>
+    </div>
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr><th>Tipo</th><th>Quantidade</th><th>%</th></tr>
+            </thead>
+            <tbody id="distribuicaoTipos"></tbody>
+        </table>
+    </div>
+</div>
+
+<div class="content-panel">
+    <div class="panel-header">
+        <h3><i class="fas fa-list"></i> Últimas Doações</h3>
+        <button onclick="carregarDoacoes()" class="btn btn-sm btn-outline">
+            <i class="fas fa-sync-alt"></i> Atualizar
+        </button>
+    </div>
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Doador</th><th>Tipo</th><th>Valor/Item</th><th>Data</th><th>Status</th><th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="doacoesList"></tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal de Detalhes -->
+<div id="doacaoModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Detalhes da Doação</h3>
+            <button class="modal-close" onclick="fecharModal('doacaoModal')">&times;</button>
+        </div>
+        <div class="modal-body" id="doacaoDetalhes"></div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" onclick="fecharModal('doacaoModal')">Fechar</button>
+            <button class="btn btn-primary" onclick="editarDoacaoFromModal()">✏️ Editar</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card-icon.success { background: #e8f5e9; color: #388e3c; }
+    .card-icon.warning { background: #fff3e0; color: #f57c00; }
+    textarea { resize: vertical; }
+</style>
